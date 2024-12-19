@@ -4,8 +4,8 @@
 #include "solver.h"
 
 void read_clues(int* clue_info, int num_clues) {
-    for (int i=0; i<num_clues; i++) {
-        if (scanf("%d %d %d", &clue_info[i], &clue_info[i+1], &clue_info[i+2]) != 3) {
+    for (int i=0; i<3*num_clues; i++) {
+        if (scanf("%d %d %d", &clue_info[3*i], &clue_info[3*i+1], &clue_info[3*i+2]) != 3) {
             printf("error reading the clue info\n");
             exit(1);
         }
