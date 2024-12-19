@@ -23,7 +23,7 @@ int main() {
 
     //Hello World - print input
     for (int i=0; i<num_clues; i++) {
-        printf("%d %d %d\n", clue_info[i], clue_info[i+1], clue_info[i+2]);
+        printf("%d %d %d\n", clue_info[3*i], clue_info[3*i+1], clue_info[3*i+2]);
     }
 
     return 0;
