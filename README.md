@@ -1,0 +1,2 @@
+# SudokuSolver
+Automated Sudoku Solver.
