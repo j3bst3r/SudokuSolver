@@ -90,15 +90,13 @@ int main() {
 
     //test check board
     printf("filling out board\n");
-    int guesses[PUZZLE_LENGTH];
+    int guesses[PUZZLE_LENGTH] = {0};
     for (int i=0; i<num_clues; i++) {
         int guess = clue_info[3*i];
         int row = clue_info[3*i+1];
         int col = clue_info[3*i+2];
         if (guess != 0) {
             guesses[row*ROW_LENGTH+col] = guess;
-        } else {
-            guesses[row*ROW_LENGTH+col] = 0;
         }
     }
     printf("succesfully print out board\n");
