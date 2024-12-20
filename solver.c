@@ -8,10 +8,6 @@ const int PUZZLE_LENGTH = ROW_LENGTH*COLUMN_LENGTH;
 const int NUMBER_OF_BOXES = 9;
 const int BOX_LENGTH;
 
-typedef struct {
-    double guesses[PUZZLE_LENGTH];
-} board;
-
 void read_clues(int* clue_info, int num_clues) {
     for (int i=0; i<num_clues; i++) {
         if (scanf("%d %d %d", &clue_info[3*i], &clue_info[3*i+1], &clue_info[3*i+2]) != 3) {
@@ -21,12 +17,12 @@ void read_clues(int* clue_info, int num_clues) {
     }
 }
 
-bool check_board_is_valid(board b) {
+bool check_board_is_valid(int* guesses) {
     //check all rows are valid
     for (int row=0; row<ROW_LENGTH; row++) {
         int counts[ROW_LENGTH] = { 0 };
         for (int col=0; col<COLUMN_LENGTH; col++) {
-            int guess = b.guesses[row*ROW_LENGTH + col];
+            int guess = guesses[row*ROW_LENGTH + col];
             if (guess != 0) {
                 counts[guess]++;
             }
@@ -40,7 +36,7 @@ bool check_board_is_valid(board b) {
     for (int col=0; col<COLUMN_LENGTH; col++) {
         int counts[COLUMN_LENGTH] = { 0 };
         for (int row=0; row<ROW_LENGTH; row++) {
-            int guess = b.guesses[row*ROW_LENGTH + col];
+            int guess = guesses[row*ROW_LENGTH + col];
             if (guess != -1) {
                 counts[guess]++;
             }
@@ -55,7 +51,7 @@ bool check_board_is_valid(board b) {
         for (int row=0; row<BOX_LENGTH; row++) {
             int counts[NUMBER_OF_BOXES] = { 0 };
             for (int col=0; col<BOX_LENGTH; col++) {
-                int guess = b.guesses[row*ROW_LENGTH + col];
+                int guess = guesses[row*ROW_LENGTH + col];
                 if (guess != -1) {
                     counts[guess]++;
                 }
@@ -79,17 +75,19 @@ int main() {
     read_clues(clue_info, num_clues);
 
     //test check board
-    board b;
+    int guesses[PUZZLE_LENGTH];
     for (int i=0; i<num_clues; i++) {
         int guess = clue_info[3*i];
         int row = clue_info[3*i+1];
         int col = clue_info[3*i+2];
         if (guess != 0) {
-            b.guesses[row*ROW_LENGTH+col] = guess;
+            guesses[row*ROW_LENGTH+col] = guess;
+        } else {
+            guesses[row*ROW_LENGTH+col] = 0;
         }
     }
 
-    if (check_board_is_valid(b)) {
+    if (check_board_is_valid(guesses)) {
         printf("board is valid\n");
     }
 
