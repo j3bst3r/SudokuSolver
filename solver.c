@@ -21,7 +21,7 @@ bool check_board_is_valid(int* guesses) {
     printf("checking validity of rows\n");
     //check all rows are valid
     for (int row=0; row<ROW_LENGTH; row++) {
-        printf("checking row %d", row);
+        printf("checking row %d\n", row);
         int counts[ROW_LENGTH] = { 0 };
         for (int col=0; col<COLUMN_LENGTH; col++) {
             int guess = guesses[row*ROW_LENGTH + col];
@@ -38,7 +38,7 @@ bool check_board_is_valid(int* guesses) {
     printf("checking validity of columns\n");
     //check all columns are valid
     for (int col=0; col<COLUMN_LENGTH; col++) {
-        printf("checking column %d", col);
+        printf("checking column %d\n", col);
         int counts[COLUMN_LENGTH] = { 0 };
         for (int row=0; row<ROW_LENGTH; row++) {
             int guess = guesses[row*ROW_LENGTH + col];
@@ -55,7 +55,7 @@ bool check_board_is_valid(int* guesses) {
     printf("checking validity of boxs\n");
     //check all 3x3 box's are valid
     for (int box=0; box<NUMBER_OF_BOXES; box++) {
-        printf("checking box %d", box);
+        printf("checking box %d\n", box);
         for (int row=0; row<BOX_LENGTH; row++) {
             int counts[NUMBER_OF_BOXES] = { 0 };
             for (int col=0; col<BOX_LENGTH; col++) {
