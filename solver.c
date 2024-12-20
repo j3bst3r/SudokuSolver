@@ -25,7 +25,6 @@ bool check_board_is_valid(int* guesses) {
         int counts[ROW_LENGTH] = { 0 };
         printf("array created. counts[0]=%d guesses[0]=%d\n", counts[0], guesses[0]);
         for (int col=0; col<COLUMN_LENGTH; col++) {
-            printf("test");
             printf("%d %d", row, col);
             int guess = guesses[row*ROW_LENGTH + col];
             if (guess != 0) {
