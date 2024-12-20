@@ -1,2 +1,5 @@
 #ignore .vscode file
 .vscode
+
+#ignore executable
+solver
