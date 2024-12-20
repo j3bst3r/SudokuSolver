@@ -79,16 +79,11 @@ int main() {
     if (scanf("%d", &num_clues) != 1) {
         printf("error reading the number of clues\n");
         return 1;
-    } else {
-        printf("succesfully scanned number of clues\n");
     }
     int clue_info[3*num_clues];
-    printf("attempting to read all clue information\n");
     read_clues(clue_info, num_clues);
-    printf("succesfully read in all clue information\n");
 
     //test check board
-    printf("filling out board\n");
     int guesses[PUZZLE_LENGTH] = {0};
     for (int i=0; i<num_clues; i++) {
         int guess = clue_info[3*i];
@@ -98,22 +93,22 @@ int main() {
             guesses[row*ROW_LENGTH+col] = guess;
         }
     }
-    printf("succesfully filled out board\n");
 
-    printf("printing board...\n");
+    /* print board
     for (int row=0; row<ROW_LENGTH; row++) {
         for (int col=0; col<COLUMN_LENGTH; col++) {
             printf("%d ", guesses[row*ROW_LENGTH+col]);
         }
         printf("\n");
     }
-    printf("succesfully print out board\n");
+    */
 
     printf("checking board validity\n");
     if (check_board_is_valid(guesses)) {
         printf("board is valid\n");
+    } else {
+        printf("board is invalid\n");
     }
-    printf("board is invalid\n");
 
     return 0;
 }
