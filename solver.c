@@ -103,6 +103,14 @@ int main() {
     }
     printf("succesfully print out board\n");
 
+    printf("printing board...\n");
+    for (int row=0; row<ROW_LENGTH; row++) {
+        for (int col=0; col<COLUMN_LENGTH; col++) {
+            printf("%d ", guesses[row*ROW_LENGTH+col]);
+        }
+        printf("\n");
+    }
+
     printf("checking board validity\n");
     if (check_board_is_valid(guesses)) {
         printf("board is valid\n");
