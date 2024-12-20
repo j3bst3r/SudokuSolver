@@ -8,11 +8,13 @@ const int PUZZLE_LENGTH = ROW_LENGTH*COLUMN_LENGTH;
 const int NUMBER_OF_BOXES = 9;
 const int BOX_LENGTH;
 
-void read_clues(int* clue_info, int num_clues) {
-    for (int i=0; i<num_clues; i++) {
-        if (scanf("%d %d %d", &clue_info[3*i], &clue_info[3*i+1], &clue_info[3*i+2]) != 3) {
-            printf("error reading the clue info\n");
-            exit(1);
+void read_clues(int* guesses) {
+    for (int row=0; row<ROW_LENGTH; row++) {
+        for (int col=0; col<COLUMN_LENGTH; col++) {
+            if (scanf("%d", &guesses[row*ROW_LENGTH+col]) != 1) {
+                printf("error reading clue at position (row, col) = %d, %d", row, col);
+                exit(1);
+            }
         }
     }
 }
@@ -75,24 +77,8 @@ bool check_board_is_valid(int* guesses) {
 }
 
 int main() {
-    int num_clues;
-    if (scanf("%d", &num_clues) != 1) {
-        printf("error reading the number of clues\n");
-        return 1;
-    }
-    int clue_info[3*num_clues];
-    read_clues(clue_info, num_clues);
-
-    //test check board
-    int guesses[PUZZLE_LENGTH] = {0};
-    for (int i=0; i<num_clues; i++) {
-        int guess = clue_info[3*i];
-        int row = clue_info[3*i+1];
-        int col = clue_info[3*i+2];
-        if (guess != 0) {
-            guesses[row*ROW_LENGTH+col] = guess;
-        }
-    }
+    int guesses[PUZZLE_LENGTH];
+    read_clues(guesses);
 
     /* print board
     for (int row=0; row<ROW_LENGTH; row++) {
