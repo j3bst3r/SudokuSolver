@@ -18,6 +18,7 @@ void read_clues(int* clue_info, int num_clues) {
 }
 
 bool check_board_is_valid(int* guesses) {
+    printf("checking validity of rows\n");
     //check all rows are valid
     for (int row=0; row<ROW_LENGTH; row++) {
         int counts[ROW_LENGTH] = { 0 };
@@ -31,7 +32,9 @@ bool check_board_is_valid(int* guesses) {
             }
         }
     }
+    printf("all rows are valid\n");
 
+    printf("checking validity of columns\n");
     //check all columns are valid
     for (int col=0; col<COLUMN_LENGTH; col++) {
         int counts[COLUMN_LENGTH] = { 0 };
@@ -45,7 +48,9 @@ bool check_board_is_valid(int* guesses) {
             }
         }
     }
+    printf("all columns are valid\n");
 
+    printf("checking validity of boxs\n");
     //check all 3x3 box's are valid
     for (int box=0; box<NUMBER_OF_BOXES; box++) {
         for (int row=0; row<BOX_LENGTH; row++) {
@@ -61,6 +66,7 @@ bool check_board_is_valid(int* guesses) {
             }
         }
     }
+    printf("all boxs are valid\n");
 
     return true;
 }
