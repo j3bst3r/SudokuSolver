@@ -99,7 +99,7 @@ int main() {
             guesses[row*ROW_LENGTH+col] = guess;
         }
     }
-    printf("succesfully print out board\n");
+    printf("succesfully filled out board\n");
 
     printf("printing board...\n");
     for (int row=0; row<ROW_LENGTH; row++) {
@@ -108,6 +108,7 @@ int main() {
         }
         printf("\n");
     }
+    printf("succesfully print out board\n");
 
     printf("checking board validity\n");
     if (check_board_is_valid(guesses)) {
