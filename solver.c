@@ -27,7 +27,7 @@ bool check_board_is_valid(board b) {
         int counts[ROW_LENGTH] = { 0 };
         for (int col=0; col<COLUMN_LENGTH; col++) {
             int guess = b.guesses[row*ROW_LENGTH + col];
-            if (guess != -1) {
+            if (guess != 0) {
                 counts[guess]++;
             }
             if (counts[guess] > 1) {
@@ -78,9 +78,19 @@ int main() {
     int clue_info[3*num_clues];
     read_clues(clue_info, num_clues);
 
-    //Hello World - print input
+    //test check board
+    board b;
     for (int i=0; i<num_clues; i++) {
-        printf("%d %d %d\n", clue_info[3*i], clue_info[3*i+1], clue_info[3*i+2]);
+        int guess = clue_info[3*i];
+        int row = clue_info[3*i+1];
+        int col = clue_info[3*i+2];
+        if (guess != 0) {
+            b.guesses[row*ROW_LENGTH+col] = guess;
+        }
+    }
+
+    if (check_board_is_valid(b)) {
+        printf("board is valid\n");
     }
 
     return 0;
