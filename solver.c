@@ -23,6 +23,7 @@ bool check_board_is_valid(int* guesses) {
     for (int row=0; row<ROW_LENGTH; row++) {
         int counts[ROW_LENGTH] = { 0 };
         for (int col=0; col<COLUMN_LENGTH; col++) {
+            printf("%d %d", row, col);
             int guess = guesses[row*ROW_LENGTH + col];
             if (guess != 0) {
                 counts[guess]++;
