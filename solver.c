@@ -26,9 +26,9 @@ bool check_board_is_valid(int* guesses) {
         for (int col=0; col<COLUMN_LENGTH; col++) {
             int guess = guesses[row*ROW_LENGTH + col];
             if (guess != 0) {
-                counts[guess]++;
+                counts[guess-1]++;
             }
-            if (counts[guess] > 1) {
+            if (counts[guess-1] > 1) {
                 return false;
             }
         }
@@ -43,9 +43,9 @@ bool check_board_is_valid(int* guesses) {
         for (int row=0; row<ROW_LENGTH; row++) {
             int guess = guesses[row*ROW_LENGTH + col];
             if (guess != -1) {
-                counts[guess]++;
+                counts[guess-1]++;
             }
-            if (counts[guess] > 1) {
+            if (counts[guess-1] > 1) {
                 return false;
             }
         }
@@ -61,9 +61,9 @@ bool check_board_is_valid(int* guesses) {
             for (int col=0; col<BOX_LENGTH; col++) {
                 int guess = guesses[row*ROW_LENGTH + col];
                 if (guess != -1) {
-                    counts[guess]++;
+                    counts[guess-1]++;
                 }
-                if (counts[guess] > 1) {
+                if (counts[guess-1] > 1) {
                     return false;
                 }
             }
