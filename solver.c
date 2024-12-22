@@ -114,9 +114,11 @@ void set_guess_indices(int* guess_indices, int num_guesses, int* clue_indices, i
 
 bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clues, int* clue_indices) {
 
+    printf("test");
+
     int curr = 0;
     int max_iter = 1000000;
-    while (max_iter-- >= 0) {
+    while (max_iter >= 0) {
 
         printf("%d", puzzle[0]);
 
@@ -149,6 +151,8 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
                 curr++;
             }
         }
+
+        max_iter--;
     }
 
     printf("max iterations reached\n");
