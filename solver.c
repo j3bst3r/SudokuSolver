@@ -32,26 +32,6 @@ void read_clues(int* puzzle, int* clue_indices, int* num_clues) {
 
 }
 
-void set_guess_linked_list(node* first, int num_guesses, int* puzzle, int* clue_indices, int num_clues) {
-
-    first->prev = NULL;
-    node* curr = first;
-
-    int index = 0;
-    for (int i=0; i<num_guesses; i++) {
-
-        while (check_index_is_clue(index, clue_indices, num_clues)) {
-            index++;
-        }
-
-        node temp = {curr, index, NULL};
-        curr->next = &temp;
-        curr = &temp;
-
-    }
-
-}
-
 bool check_puzzle_are_valid(int* puzzle) {
 
     //check all rows are valid
@@ -118,7 +98,27 @@ bool check_index_is_clue(int index, int* clue_indices, int num_clues) {
     return false;
 }
 
-bool solve_puzzle(node* guesses, int* puzzle, int num_clues, int* clue_indices) {
+void set_guess_linked_list(struct node* first, int num_guesses, int* puzzle, int* clue_indices, int num_clues) {
+
+    first->prev = NULL;
+    struct node* curr = first;
+
+    int index = 0;
+    for (int i=0; i<num_guesses; i++) {
+
+        while (check_index_is_clue(index, clue_indices, num_clues)) {
+            index++;
+        }
+
+        node temp = {curr, index, NULL};
+        curr->next = &temp;
+        curr = &temp;
+
+    }
+
+}
+
+bool solve_puzzle(struct node* guesses, int* puzzle, int num_clues, int* clue_indices) {
 
     node* curr = guesses;
     int max_iter = 1000000;
@@ -166,7 +166,7 @@ int main() {
     read_clues(puzzle, clue_indices, num_clues);
 
     int num_guesses = PUZZLE_LENGTH-num_clues;
-    node* guesses;
+    struct node* guesses;
     set_guess_linked_list(guesses, num_guesses, puzzle, clue_indices, num_clues);
 
     if (solve_puzzle(guesses, puzzle, num_clues, clue_indices)) {
