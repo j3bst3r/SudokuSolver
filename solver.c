@@ -8,11 +8,11 @@ const int PUZZLE_LENGTH = ROW_LENGTH*COLUMN_LENGTH;
 const int NUMBER_OF_BOXES = 9;
 const int BOX_LENGTH;
 
-typedef struct {
-    struct node* prev;
+struct Node {
+    struct Node* prev;
     int index;
-    struct node* next;
-} node;
+    struct Node* next;
+};
 
 void read_clues(int* puzzle, int* clue_indices, int* num_clues) {
 
@@ -32,7 +32,7 @@ void read_clues(int* puzzle, int* clue_indices, int* num_clues) {
 
 }
 
-bool check_puzzle_are_valid(int* puzzle) {
+bool check_guesses_are_valid(int* puzzle) {
 
     //check all rows are valid
     for (int row=0; row<ROW_LENGTH; row++) {
@@ -98,19 +98,19 @@ bool check_index_is_clue(int index, int* clue_indices, int num_clues) {
     return false;
 }
 
-void set_guess_linked_list(struct node* first, int num_guesses, int* puzzle, int* clue_indices, int num_clues) {
+void set_guess_linked_list(struct Node* first, int num_guesses, int* puzzle, int* clue_indices, int num_clues) {
 
     first->prev = NULL;
     struct node* curr = first;
 
-    int index = 0;
+    int index = 0
     for (int i=0; i<num_guesses; i++) {
 
         while (check_index_is_clue(index, clue_indices, num_clues)) {
             index++;
         }
 
-        node temp = {curr, index, NULL};
+        struct node* temp = {curr, index, NULL};
         curr->next = &temp;
         curr = &temp;
 
