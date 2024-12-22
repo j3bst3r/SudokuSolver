@@ -8,16 +8,22 @@ const int PUZZLE_LENGTH = ROW_LENGTH*COLUMN_LENGTH;
 const int NUMBER_OF_BOXES = 9;
 const int BOX_LENGTH;
 
-void read_clues(int* guesses, int* clue_indices, int* num_clues) {
+typedef struct {
+    node* prev;
+    int index;
+    node* next;
+} node;
+
+void read_clues(int* puzzle, int* clue_indices, int* num_clues) {
 
     *num_clues = 0;
     for (int row=0; row<ROW_LENGTH; row++) {
         for (int col=0; col<COLUMN_LENGTH; col++) {
-            if (scanf("%d", &guesses[row*ROW_LENGTH+col]) != 1) {
+            if (scanf("%d", &puzzle[row*ROW_LENGTH+col]) != 1) {
                 printf("error reading clue at position (row, col) = %d, %d", row, col);
                 exit(1);
             }
-            if (guesses[row*ROW_LENGTH+col] != 0) {
+            if (puzzle[row*ROW_LENGTH+col] != 0) {
                 clue_indices[*num_clues] =  row*ROW_LENGTH+col;
                 *num_clues++;
             }
@@ -26,13 +32,33 @@ void read_clues(int* guesses, int* clue_indices, int* num_clues) {
 
 }
 
-bool check_guesses_are_valid(int* guesses) {
+void set_guess_linked_list(node* first, int num_guesses, int* puzzle, int* clue_indices, int num_clues) {
+
+    first->prev = NULL;
+    node* curr = first;
+
+    int index = 0;
+    for (int i=0; i<num_guesses; i++) {
+
+        while (check_index_is_clue(index, clue_indices, num_clues)) {
+            index++;
+        }
+
+        node temp = {curr, index, NULL};
+        curr->next = &temp;
+        curr = &temp;
+
+    }
+
+}
+
+bool check_puzzle_are_valid(int* puzzle) {
 
     //check all rows are valid
     for (int row=0; row<ROW_LENGTH; row++) {
         int counts[ROW_LENGTH] = { 0 };
         for (int col=0; col<COLUMN_LENGTH; col++) {
-            int guess = guesses[row*ROW_LENGTH + col];
+            int guess = puzzle[row*ROW_LENGTH + col];
             if (guess != 0) {
                 counts[guess-1]++;
                 if (counts[guess-1] > 1) {
@@ -46,7 +72,7 @@ bool check_guesses_are_valid(int* guesses) {
     for (int col=0; col<COLUMN_LENGTH; col++) {
         int counts[COLUMN_LENGTH] = { 0 };
         for (int row=0; row<ROW_LENGTH; row++) {
-            int guess = guesses[row*ROW_LENGTH + col];
+            int guess = puzzle[row*ROW_LENGTH + col];
             if (guess != 0) {
                 counts[guess-1]++;
                 if (counts[guess-1] > 1) {
@@ -61,7 +87,7 @@ bool check_guesses_are_valid(int* guesses) {
         for (int row=0; row<BOX_LENGTH; row++) {
             int counts[NUMBER_OF_BOXES] = { 0 };
             for (int col=0; col<BOX_LENGTH; col++) {
-                int guess = guesses[row*ROW_LENGTH + col];
+                int guess = puzzle[row*ROW_LENGTH + col];
                 if (guess != 0) {
                     counts[guess-1]++;
                     if (counts[guess-1] > 1) {
@@ -76,10 +102,10 @@ bool check_guesses_are_valid(int* guesses) {
 
 }
 
-void print_board(int* guesses) {
+void print_board(int* puzzle) {
     for (int row=0; row<ROW_LENGTH; row++) {
         for (int col=0; col<COLUMN_LENGTH; col++) {
-            printf("%d ", guesses[row*ROW_LENGTH+col]);
+            printf("%d ", puzzle[row*ROW_LENGTH+col]);
         }
         printf("\n");
     }
@@ -92,47 +118,59 @@ bool check_index_is_clue(int index, int* clue_indices, int num_clues) {
     return false;
 }
 
-bool solve_puzle(int* guesses, int num_clues, int* clue_indices) {
+bool solve_puzzle(node* guesses, int* puzzle, int num_clues, int* clue_indices) {
 
-    int curr_index = 0;
-    int max_iter = 100000;
+    node* curr = guesses;
+    int max_iter = 1000000;
     while (max_iter-- >= 0) {
 
-        if (check_index_is_clue(curr_index, num_clues, clue_indices)) {
-            curr_index++
-        }
+        int* guess = puzzle+(curr->index);
+        *guess = (*guess==0) ? (*guess)++ : *guess;
 
-        // Check if the sudoku is invalid (Can't be solved)
-        // If curr_index is -1, it has traversed every state and did not find a solution.
-        if (curr_index == -1) {
-            return false;
-        }
-
-        // Check if the sudoku is solved.
-        // First check if the curr_index is at the last position on the board.
-        // Then check if the last position has a guess (not zero)
-        // Then finally, checks if the puzzle is valid. (If so a solution has been found)
-        if ((curr_index == PUZZLE_LENGTH) & (guesses[curr_index] != 0)) {
-            if (check_guesses_are_valid(guesses)) {
+        // If the current guesses are invalid, first check if the current guess is 9. If so,
+        // then check if this is the first guess (the previous node is null) in which case, we have traversed every possible 
+        // solution state, and therefore, the puzzle is invalid (Can't be solved, return false). 
+        // If this is not the first guess, set the guess to 0 move to the previous guess. 
+        // If the current guess is not 9, then increment it.
+        // Now, if the current guesses ARE valid, check if this is the last node (the next node is null). If so, the puzzle is solved,
+        // return true. Else, move the current guess to the next one.
+        if (!check_guesses_are_valid(puzzle)) {
+            if (*guess == 9) {
+                if (curr->prev == NULL) {
+                    return false;
+                } else {
+                    *guess = 0;
+                    curr = curr -> prev;
+                }
+            } else {
+                (*guess)++;
+            }
+        } else {
+            if (curr->next == NULL) {
                 return true;
+            } else {
+                curr = curr->next;
             }
         }
-
-        if (check_guesses_are_valid(guesses)) {
-            curr_index++;
-        }
     }
+
+    printf("max iterations reached\n");
+    return false;
 
 }
 
 int main() {
-    int guesses[PUZZLE_LENGTH];
+    int puzzle[PUZZLE_LENGTH];
     int num_clues;
     int clue_indices[PUZZLE_LENGTH];
-    read_clues(guesses, clue_indices, num_clues);
+    read_clues(puzzle, clue_indices, num_clues);
 
-    if (solve_puzzle(guesses, num_clues, clue_indices)) {
-        print_board(guesses);
+    int num_guesses = PUZZLE_LENGTH-num_clues;
+    node* guesses;
+    set_guess_linked_list(guesses, num_guesses, puzzle, clue_indices, num_clues);
+
+    if (solve_puzzle(guesses, puzzle, num_clues, clue_indices)) {
+        print_board(puzzle);
     } else {
         printf("Puzzle is invalid (Can't be solved)\n");
     }
