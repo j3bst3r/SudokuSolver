@@ -162,8 +162,8 @@ int main() {
     int clue_indices[PUZZLE_LENGTH];
     read_clues(puzzle, clue_indices, &num_clues);
 
-    printf("puzzle[0] = ");
-    printf("%d\n", puzzle[0]);
+    printf("puzzle[2] = ");
+    printf("%d\n", puzzle[2]);
 
     int num_guesses = PUZZLE_LENGTH-num_clues;
     int guess_indices[num_guesses];
