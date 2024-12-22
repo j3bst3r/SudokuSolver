@@ -120,6 +120,7 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
 
         int* guess = puzzle+guess_indices[curr];
         *guess = (*guess==0) ? (*guess)++ : *guess;
+        printf("%d", guess);
 
         // If the current guesses are invalid, first check if the current guess is 9. If so,
         // then check if this is the first guess (the previous node is null) in which case, we have traversed every possible 
@@ -158,14 +159,11 @@ int main() {
     int num_clues;
     int clue_indices[PUZZLE_LENGTH];
     read_clues(puzzle, clue_indices, &num_clues);
-    printf("read clues succesfully\n");
 
     int num_guesses = PUZZLE_LENGTH-num_clues;
     int guess_indices[num_guesses];
     set_guess_indices(guess_indices, num_guesses, clue_indices, num_clues);
-    printf("set guess indices correctly\n");
 
-    printf("solving puzzle...\n");
     if (solve_puzzle(guess_indices, num_guesses, puzzle, num_clues, clue_indices)) {
         print_board(puzzle);
     } else {
