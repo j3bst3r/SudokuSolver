@@ -93,38 +93,32 @@ void print_board(int* puzzle) {
 
 bool check_index_is_clue(int index, int* clue_indices, int num_clues) {
     for (int i=0; i<num_clues; i++) {
-        return true;
+        if (clue_indices[i] > index) {
+            return false;
+        } else if (clue_indices[i] == index) {
+            return true;
+        }
     }
     return false;
 }
 
-void set_guess_linked_list(struct Node* first, int num_guesses, int* puzzle, int* clue_indices, int num_clues) {
-
-    first->prev = NULL;
-    struct node* curr = first;
-
-    int index = 0
+void set_guess_indices(int guess_indices, int num_guesses, int* clue_indices, int num_clues) {
+    int index = 0;
     for (int i=0; i<num_guesses; i++) {
-
-        while (check_index_is_clue(index, clue_indices, num_clues)) {
+        if (!check_index_is_clue(i, clue_indices, num_clues)) {
+            guess_indices[index] = i;
             index++;
         }
-
-        struct node* temp = {curr, index, NULL};
-        curr->next = &temp;
-        curr = &temp;
-
     }
-
 }
 
-bool solve_puzzle(struct node* guesses, int* puzzle, int num_clues, int* clue_indices) {
+bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clues, int* clue_indices) {
 
-    node* curr = guesses;
+    int curr = 0;
     int max_iter = 1000000;
     while (max_iter-- >= 0) {
 
-        int* guess = puzzle+(curr->index);
+        int* guess = puzzle+guess_indices[curr];
         *guess = (*guess==0) ? (*guess)++ : *guess;
 
         // If the current guesses are invalid, first check if the current guess is 9. If so,
@@ -136,20 +130,20 @@ bool solve_puzzle(struct node* guesses, int* puzzle, int num_clues, int* clue_in
         // return true. Else, move the current guess to the next one.
         if (!check_guesses_are_valid(puzzle)) {
             if (*guess == 9) {
-                if (curr->prev == NULL) {
+                if (curr == 0) {
                     return false;
                 } else {
                     *guess = 0;
-                    curr = curr -> prev;
+                    curr--;
                 }
             } else {
                 (*guess)++;
             }
         } else {
-            if (curr->next == NULL) {
+            if (curr == num_guesses) {
                 return true;
             } else {
-                curr = curr->next;
+                curr++;
             }
         }
     }
@@ -166,10 +160,10 @@ int main() {
     read_clues(puzzle, clue_indices, num_clues);
 
     int num_guesses = PUZZLE_LENGTH-num_clues;
-    struct node* guesses;
-    set_guess_linked_list(guesses, num_guesses, puzzle, clue_indices, num_clues);
+    int guess_indices[num_guesses];
+    set_guess_indices(guess_indices, num_guesses, clue_indices, num_clues);
 
-    if (solve_puzzle(guesses, puzzle, num_clues, clue_indices)) {
+    if (solve_puzzle(guess_indices, num_guesses, puzzle, num_clues, clue_indices)) {
         print_board(puzzle);
     } else {
         printf("Puzzle is invalid (Can't be solved)\n");
