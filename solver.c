@@ -9,9 +9,9 @@ const int NUMBER_OF_BOXES = 9;
 const int BOX_LENGTH;
 
 typedef struct {
-    node* prev;
+    struct node* prev;
     int index;
-    node* next;
+    struct node* next;
 } node;
 
 void read_clues(int* puzzle, int* clue_indices, int* num_clues) {
