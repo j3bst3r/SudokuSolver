@@ -162,6 +162,7 @@ int main() {
     read_clues(puzzle, clue_indices, &num_clues);
 
     print_board(puzzle);
+    printf("%d",clue_indices[0]);
 
     int num_guesses = PUZZLE_LENGTH-num_clues;
     int guess_indices[num_guesses];
