@@ -86,10 +86,8 @@ void print_board(int* puzzle) {
 }
 
 bool check_index_is_clue(int index, int* clue_indices, int num_clues) {
-    for (int i=0; i<num_clues; i++) {
-        if (clue_indices[i] > index) {
-            return false;
-        } else if (clue_indices[i] == index) {
+    for (int i=0; clue_indices[i]<index; i++) {
+        if (clue_indices[i] == index) {
             return true;
         }
     }
@@ -172,13 +170,18 @@ int main() {
     for (int i=0; i<num_clues; i++) {
         printf("%d\n",clue_indices[i]);
     }
-    /*
+    
     print_board(puzzle);
 
     int num_guesses = PUZZLE_LENGTH-num_clues;
     int guess_indices[num_guesses];
     set_guess_indices(guess_indices, num_guesses, clue_indices, num_clues);
 
+    for (int i=0; i<num_guesses; i++) {
+        printf("%d\n",guess_indices[i]);
+    }
+
+    /*
     if (solve_puzzle(guess_indices, num_guesses, puzzle, num_clues, clue_indices)) {
         print_board(puzzle);
     } else {
