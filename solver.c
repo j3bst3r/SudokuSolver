@@ -116,7 +116,7 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
         int* guess = puzzle+guess_indices[curr];
         *guess = (*guess==0) ? 1 : *guess;
 
-        printf("curr=%d, guess=%d, puzzle[guess_indices[curr]]=%d\n",curr,*guess,puzzle[guess_indices[curr]]);
+        // printf("curr=%d, guess=%d, puzzle[guess_indices[curr]]=%d\n",curr,*guess,puzzle[guess_indices[curr]]);
 
         if (*guess == 9) {
             if (moved_back) {
@@ -174,6 +174,7 @@ int main() {
     set_guess_indices(guess_indices, num_guesses, clue_indices, num_clues);
 
     if (solve_puzzle(guess_indices, num_guesses, puzzle, num_clues, clue_indices)) {
+        printf("test\n");
         print_board(puzzle);
     } else {
         printf("Puzzle is invalid (Can't be solved)\n");
