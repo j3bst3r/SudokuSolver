@@ -113,7 +113,7 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
     while (max_iter >= 0) {
 
         int* guess = puzzle+guess_indices[curr];
-        *guess = (*guess==0) ? (*guess)++ : *guess;
+        *guess = (*guess==0) ? 1 : *guess;
         printf("%d\n", *guess);
 
         // If the current guesses are invalid, first check if the current guess is 9. If so,
