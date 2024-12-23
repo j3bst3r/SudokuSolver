@@ -165,8 +165,6 @@ int main() {
     int num_clues;
     int clue_indices[PUZZLE_LENGTH];
     read_clues(puzzle, clue_indices, &num_clues);
-    
-    print_board(puzzle);
 
     int num_guesses = PUZZLE_LENGTH-num_clues;
     int guess_indices[num_guesses];
@@ -177,5 +175,6 @@ int main() {
     } else {
         printf("Puzzle is invalid (Can't be solved)\n");
     }
+
     return 0;
 }
