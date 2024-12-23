@@ -20,7 +20,6 @@ void read_clues(int* puzzle, int* clue_indices, int* num_clues) {
             if (puzzle[row*ROW_LENGTH+col] != 0) {
                 clue_indices[*num_clues] =  row*ROW_LENGTH+col;
                 (*num_clues)++;
-                printf("%d, %d, %d\n",row*ROW_LENGTH+col,*num_clues,clue_indices[*num_clues-1]);
             }
         }
     }
@@ -101,7 +100,6 @@ void set_guess_indices(int* guess_indices, int num_guesses, int* clue_indices, i
     int index = 0;
     for (int i=0; i<num_guesses; i++) {
         if (!check_index_is_clue(i, clue_indices, num_clues)) {
-            printf("i=%d\n",i);
             guess_indices[index] = i;
             index++;
         }
@@ -159,13 +157,10 @@ int main() {
     read_clues(puzzle, clue_indices, &num_clues);
 
     print_board(puzzle);
-    printf("%d\n",clue_indices[0]);
 
     int num_guesses = PUZZLE_LENGTH-num_clues;
     int guess_indices[num_guesses];
     set_guess_indices(guess_indices, num_guesses, clue_indices, num_clues);
-
-    printf("%d\n",guess_indices[2]);
 
     if (solve_puzzle(guess_indices, num_guesses, puzzle, num_clues, clue_indices)) {
         print_board(puzzle);
