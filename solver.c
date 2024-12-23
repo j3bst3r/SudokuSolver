@@ -94,11 +94,10 @@ bool check_index_is_clue(int index, int* clue_indices, int num_clues) {
     return false;
 }
 
-void set_guess_indices(int* guess_indices, int num_guesses, int* clue_indices, int num_clues) {
+void set_guess_indices(int* guess_indices, int* clue_indices, int num_clues) {
     int index = 0;
-    for (int i=0; i<num_guesses; i++) {
+    for (int i=0; i<PUZZLE_LENGTH; i++) {
         if (!check_index_is_clue(i, clue_indices, num_clues)) {
-            printf("guess ind=%d",i);
             guess_indices[index] = i;
             index++;
         }
@@ -176,7 +175,7 @@ int main() {
 
     int num_guesses = PUZZLE_LENGTH-num_clues;
     int guess_indices[num_guesses];
-    set_guess_indices(guess_indices, num_guesses, clue_indices, num_clues);
+    set_guess_indices(guess_indices, clue_indices, num_clues);
 
     for (int i=0; i<num_guesses; i++) {
         printf("guess_index=%d\n",guess_indices[i]);
