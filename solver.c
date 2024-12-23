@@ -138,7 +138,10 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
                 curr++;
             }
         } else {
-            moved_back = false;
+            if (moved_back) {
+                (*guess)++;
+                moved_back = false;
+            }
             if (!check_guesses_are_valid(puzzle)) {
                 (*guess)++;
             } else {
