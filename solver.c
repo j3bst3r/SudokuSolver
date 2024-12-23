@@ -144,9 +144,10 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
             }
             printf("test\n");
             if (!check_guesses_are_valid(puzzle)) {
-            printf("test2\n");
+                printf("test2\n");
                 (*guess)++;
             } else {
+                printf("test3\n");
                 if (curr >= num_guesses) {
                     return true;
                 } else {
