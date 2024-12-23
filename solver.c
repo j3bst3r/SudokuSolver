@@ -18,6 +18,7 @@ void read_clues(int* puzzle, int* clue_indices, int* num_clues) {
                 exit(1);
             }
             if (puzzle[row*ROW_LENGTH+col] != 0) {
+                printf("%d",row*ROW_LENGTH+col);
                 clue_indices[*num_clues] =  row*ROW_LENGTH+col;
                 (*num_clues)++;
             }
