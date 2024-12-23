@@ -109,37 +109,44 @@ void set_guess_indices(int* guess_indices, int num_guesses, int* clue_indices, i
 bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clues, int* clue_indices) {
 
     int curr = 0;
+    bool moved_back = false;
     int max_iter = 1000000;
     while (max_iter >= 0) {
 
         int* guess = puzzle+guess_indices[curr];
         *guess = (*guess==0) ? 1 : *guess;
-        
+
         printf("curr=%d, guess=%d\n",curr,*guess);
 
-        // If the current guesses are invalid, first check if the current guess is 9. If so,
-        // then check if this is the first guess (the previous node is null) in which case, we have traversed every possible 
-        // solution state, and therefore, the puzzle is invalid (Can't be solved, return false). 
-        // If this is not the first guess, set the guess to 0 move to the previous guess. 
-        // If the current guess is not 9, then increment it.
-        // Now, if the current guesses ARE valid, check if this is the last node (the next node is null). If so, the puzzle is solved,
-        // return true. Else, move the current guess to the next one.
-        if (!check_guesses_are_valid(puzzle)) {
-            if (*guess == 9) {
+        if (*guess == 9) {
+            if (moved_back) {
                 if (curr == 0) {
                     return false;
                 } else {
-                    *guess = 0;
+                    *guess == 0;
                     curr--;
                 }
-            } else {
-                (*guess)++;
-            }
-        } else {
-            if (curr == num_guesses) {
-                return true;
+            } else if (!check_guesses_are_valid(puzzle)) {
+                if (curr == 0) {
+                    return false;
+                } else {
+                    *guess == 0;
+                    curr--;
+                    moved_back = true;
+                }
             } else {
                 curr++;
+            }
+        } else {
+            moved_back = false;
+            if (!check_guesses_are_valid(puzzle)) {
+                (*guess)++;
+            } else {
+                if (curr == num_guesses) {
+                    return true;
+                } else {
+                    curr++;
+                }
             }
         }
 
