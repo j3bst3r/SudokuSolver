@@ -127,7 +127,6 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
                     curr--;
                 }
             } else if (!check_guesses_are_valid(puzzle)) {
-                printf("test\n");
                 if (curr == 0) {
                     return false;
                 } else {
@@ -143,6 +142,7 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
                 (*guess)++;
                 moved_back = false;
             }
+            printf("test\n");
             if (!check_guesses_are_valid(puzzle)) {
                 (*guess)++;
             } else {
