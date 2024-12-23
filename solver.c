@@ -145,7 +145,7 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
             if (!check_guesses_are_valid(puzzle)) {
                 (*guess)++;
             } else {
-                if (curr == num_guesses) {
+                if (curr >= num_guesses) {
                     return true;
                 } else {
                     curr++;
