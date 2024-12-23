@@ -139,14 +139,15 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
             if (moved_back) {
                 (*guess)++;
                 moved_back = false;
-            }
-            if (!check_guesses_are_valid(puzzle)) {
-                (*guess)++;
             } else {
-                if (curr >= num_guesses) {
-                    return true;
+                if (!check_guesses_are_valid(puzzle)) {
+                    (*guess)++;
                 } else {
-                    curr++;
+                    if (curr >= num_guesses) {
+                        return true;
+                    } else {
+                        curr++;
+                    }
                 }
             }
         }
