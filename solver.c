@@ -113,7 +113,7 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
     int max_iter = 1000000;
     while (max_iter >= 0) {
 
-        printf("guess_indices[curr]=%d",guess_indices[curr]);
+        printf("guess_indices[curr]=%d",guess_indices[curr-1]);
 
         int* guess = puzzle+guess_indices[curr];
         *guess = (*guess==0) ? 1 : *guess;
