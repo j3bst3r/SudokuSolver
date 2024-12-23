@@ -171,7 +171,7 @@ int main() {
     print_board(puzzle);
 
     int num_guesses = PUZZLE_LENGTH-num_clues;
-    printf("num_guesses=%d",num_guesses);
+    printf("num_guesses=%d\n",num_guesses);
     int guess_indices[num_guesses];
     set_guess_indices(guess_indices, num_guesses, clue_indices, num_clues);
 
