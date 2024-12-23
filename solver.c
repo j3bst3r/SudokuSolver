@@ -8,12 +8,6 @@ const int PUZZLE_LENGTH = ROW_LENGTH*COLUMN_LENGTH;
 const int NUMBER_OF_BOXES = 9;
 const int BOX_LENGTH;
 
-struct Node {
-    struct Node* prev;
-    int index;
-    struct Node* next;
-};
-
 void read_clues(int* puzzle, int* clue_indices, int* num_clues) {
 
     *num_clues = 0;
@@ -166,14 +160,11 @@ int main() {
     int clue_indices[PUZZLE_LENGTH];
     read_clues(puzzle, clue_indices, &num_clues);
 
-    printf("puzzle[2] = ");
-    printf("%d\n", puzzle[2]);
+    print_board(puzzle);
 
     int num_guesses = PUZZLE_LENGTH-num_clues;
     int guess_indices[num_guesses];
     set_guess_indices(guess_indices, num_guesses, clue_indices, num_clues);
-
-    printf("testing");
 
     if (solve_puzzle(guess_indices, num_guesses, puzzle, num_clues, clue_indices)) {
         print_board(puzzle);
