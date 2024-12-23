@@ -123,7 +123,7 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
                 if (curr == 0) {
                     return false;
                 } else {
-                    *guess == 0;
+                    *guess = 0;
                     curr--;
                 }
             } else if (!check_guesses_are_valid(puzzle)) {
