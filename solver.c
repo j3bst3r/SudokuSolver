@@ -146,6 +146,7 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
                 (*guess)++;
             } else {
                 if (curr >= num_guesses) {
+                    
                     return true;
                 } else {
                     curr++;
@@ -170,6 +171,7 @@ int main() {
     print_board(puzzle);
 
     int num_guesses = PUZZLE_LENGTH-num_clues;
+    printf("num_guesses=%d",num_guesses);
     int guess_indices[num_guesses];
     set_guess_indices(guess_indices, num_guesses, clue_indices, num_clues);
 
