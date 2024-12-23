@@ -110,13 +110,9 @@ void set_guess_indices(int* guess_indices, int num_guesses, int* clue_indices, i
 
 bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clues, int* clue_indices) {
 
-    printf("test\n");
-
     int curr = 0;
     int max_iter = 1000000;
     while (max_iter >= 0) {
-
-        printf("%d\n", puzzle[0]);
 
         int* guess = puzzle+guess_indices[curr];
         *guess = (*guess==0) ? (*guess)++ : *guess;
