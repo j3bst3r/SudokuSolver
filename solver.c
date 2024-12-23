@@ -166,10 +166,6 @@ int main() {
     int num_clues;
     int clue_indices[PUZZLE_LENGTH];
     read_clues(puzzle, clue_indices, &num_clues);
-
-    for (int i=0; i<num_clues; i++) {
-        printf("clue_ind=%d\n",clue_indices[i]);
-    }
     
     print_board(puzzle);
 
@@ -177,16 +173,10 @@ int main() {
     int guess_indices[num_guesses];
     set_guess_indices(guess_indices, clue_indices, num_clues);
 
-    for (int i=0; i<num_guesses; i++) {
-        printf("guess_index=%d\n",guess_indices[i]);
-    }
-
-    /*
     if (solve_puzzle(guess_indices, num_guesses, puzzle, num_clues, clue_indices)) {
         print_board(puzzle);
     } else {
         printf("Puzzle is invalid (Can't be solved)\n");
     }
-    */
     return 0;
 }
