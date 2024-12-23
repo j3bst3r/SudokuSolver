@@ -172,7 +172,7 @@ int main() {
     for (int i=0; i<num_clues; i++) {
         printf("%d\n",clue_indices[i]);
     }
-
+    /*
     print_board(puzzle);
 
     int num_guesses = PUZZLE_LENGTH-num_clues;
@@ -184,6 +184,6 @@ int main() {
     } else {
         printf("Puzzle is invalid (Can't be solved)\n");
     }
-
+    */
     return 0;
 }
