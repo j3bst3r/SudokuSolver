@@ -161,6 +161,7 @@ int main() {
     int num_clues;
     int clue_indices[PUZZLE_LENGTH];
     read_clues(puzzle, clue_indices, &num_clues);
+    printf("%d",clue_indices[0]);
 
     print_board(puzzle);
     printf("%d",clue_indices[0]);
