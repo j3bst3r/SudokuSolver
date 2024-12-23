@@ -169,7 +169,7 @@ int main() {
     int guess_indices[num_guesses];
     set_guess_indices(guess_indices, num_guesses, clue_indices, num_clues);
 
-    printf("%d\n",guess_indices[0]);
+    printf("%d\n",guess_indices[2]);
 
     if (solve_puzzle(guess_indices, num_guesses, puzzle, num_clues, clue_indices)) {
         print_board(puzzle);
