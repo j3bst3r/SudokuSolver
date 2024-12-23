@@ -112,9 +112,10 @@ bool solve_puzzle(int* guess_indices, int num_guesses, int* puzzle, int num_clue
     int max_iter = 1000000;
     while (max_iter >= 0) {
 
+        printf("curr=%d",curr);
+
         int* guess = puzzle+guess_indices[curr];
         *guess = (*guess==0) ? 1 : *guess;
-        printf("%d\n", *guess);
 
         // If the current guesses are invalid, first check if the current guess is 9. If so,
         // then check if this is the first guess (the previous node is null) in which case, we have traversed every possible 
