@@ -86,7 +86,7 @@ void print_board(int* puzzle) {
 }
 
 bool check_index_is_clue(int index, int* clue_indices, int num_clues) {
-    for (int i=0; clue_indices[i]<index; i++) {
+    for (int i=0; i<num_clues; i++) {
         if (clue_indices[i] == index) {
             return true;
         }
