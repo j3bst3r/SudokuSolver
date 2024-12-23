@@ -20,7 +20,7 @@ void read_clues(int* puzzle, int* clue_indices, int* num_clues) {
             if (puzzle[row*ROW_LENGTH+col] != 0) {
                 clue_indices[*num_clues] =  row*ROW_LENGTH+col;
                 (*num_clues)++;
-                printf("%d, %d\n",row*ROW_LENGTH+col,*num_clues);
+                printf("%d, %d, %d\n",row*ROW_LENGTH+col,*num_clues,clue_indices[*num_clues]);
             }
         }
     }
