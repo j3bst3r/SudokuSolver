@@ -161,7 +161,6 @@ int main() {
     int num_clues;
     int clue_indices[PUZZLE_LENGTH];
     read_clues(puzzle, clue_indices, &num_clues);
-    printf("%d\n",clue_indices[0]);
 
     print_board(puzzle);
     printf("%d\n",clue_indices[0]);
@@ -169,6 +168,8 @@ int main() {
     int num_guesses = PUZZLE_LENGTH-num_clues;
     int guess_indices[num_guesses];
     set_guess_indices(guess_indices, num_guesses, clue_indices, num_clues);
+
+    printf("%d\n",guess_indices[0]);
 
     if (solve_puzzle(guess_indices, num_guesses, puzzle, num_clues, clue_indices)) {
         print_board(puzzle);
