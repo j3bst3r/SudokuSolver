@@ -101,7 +101,7 @@ void set_guess_indices(int* guess_indices, int num_guesses, int* clue_indices, i
     int index = 0;
     for (int i=0; i<num_guesses; i++) {
         if (!check_index_is_clue(i, clue_indices, num_clues)) {
-            printf("i=%d",i);
+            printf("i=%d\n",i);
             guess_indices[index] = i;
             index++;
         }
