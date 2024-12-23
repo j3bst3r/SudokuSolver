@@ -98,6 +98,7 @@ void set_guess_indices(int* guess_indices, int num_guesses, int* clue_indices, i
     int index = 0;
     for (int i=0; i<num_guesses; i++) {
         if (!check_index_is_clue(i, clue_indices, num_clues)) {
+            printf("guess ind=%d",i);
             guess_indices[index] = i;
             index++;
         }
@@ -168,7 +169,7 @@ int main() {
     read_clues(puzzle, clue_indices, &num_clues);
 
     for (int i=0; i<num_clues; i++) {
-        printf("%d\n",clue_indices[i]);
+        printf("clue_ind=%d\n",clue_indices[i]);
     }
     
     print_board(puzzle);
@@ -178,7 +179,7 @@ int main() {
     set_guess_indices(guess_indices, num_guesses, clue_indices, num_clues);
 
     for (int i=0; i<num_guesses; i++) {
-        printf("%d\n",guess_indices[i]);
+        printf("guess_index=%d\n",guess_indices[i]);
     }
 
     /*
